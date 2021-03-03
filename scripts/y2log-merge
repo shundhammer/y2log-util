@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Merge all y2log-*.gz files and y2log to one single y2log-full.log file
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+result=y2log-full.log
+
+zcat -f y2log-*.gz y2log >$result
+
+echo -n "Size:  "
+du -h $result
+
+echo ""
+echo -n "Lines: "
+wc -l $result
+echo ""
+

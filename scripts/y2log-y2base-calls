@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Show the y2base calls in raw y2log*.gz and y2log files.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+zgrep 'y2base called with' y2log-*.gz y2log | \
+    sed -e 's/:20/:  20/'               \
+        -e 's/y2log:/y2log:     /'      \
+        -e 's/<1>.*y2base/ y2base/'

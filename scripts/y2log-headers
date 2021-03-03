@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Show the headers (the y2base call) of split y2-??.log files.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+grep 'y2base called with' y2-??.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
