@@ -5,20 +5,32 @@
 # Author:  Stefan Hundhammer <shundhammer@suse.com>
 # License: GPL V2
 
-src=$1
+SRC=${1:-y2log-full.log}
 
-if [ -z "$src" ]; then
-    echo
-    echo "Usage: $0 <y2log-name>"
-    echo
+if [ ! -f "$SRC" ]; then
+    echo "$(basename $0): FATAL: No such file: $SRC"
     exit 1
 fi
 
 # Remove old split files
-rm -f y2-??.log
+rm -f y2-[0-9][0-9]*.log
 
 # Split
-csplit -z -q -f 'y2-' -b '%02d.log' $src '/.*y2base called with.*/' '{*}'
+csplit -z -q -f 'y2-' -b '%02d.log' $SRC '/.*y2base called with.*/' '{*}'
+
+
+# Rename the resulting files: Include the called YaST module in the name
+
+for LOG in y2-[0-9][0-9].log;  do
+    MODULE=$(grep 'y2base called with' $LOG | sed -e 's/^.*called with \["//' -e 's/".*$//')
+
+    if [ -n "$MODULE" ]; then
+        NEW_NAME=$(echo $LOG | sed -e "s/\.log/-${MODULE}.log/")
+        mv $LOG $NEW_NAME
+    fi
+done
+
+wc -l y2-[0-9][0-9]*.log
 
 # Show YaST invocation line for each result file
-grep 'y2base called with' y2-??.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
+# grep 'y2base called with' y2-??.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
