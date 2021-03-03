@@ -5,4 +5,4 @@
 # Author:  Stefan Hundhammer <shundhammer@suse.com>
 # License: GPL V2
 
-grep 'y2base called with' y2-??.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
+grep 'y2base called with' y2-[0-9][0-9]*.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
