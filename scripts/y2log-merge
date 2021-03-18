@@ -7,7 +7,20 @@
 
 result=y2log-full.log
 
-zcat -f y2log-*.gz y2log >$result
+echo "Creating $result"
+rm -f $result
+
+# Add gzipp'ed y2logs in reverse order (y2log-5.gz is the oldest),
+# then the unzipped latest y2log
+
+for log in $( /bin/ls -r y2log-[0-9].gz ) y2log ; do
+    if [ -f $log ]; then
+        echo "Adding $log"
+        zcat -f $log >>$result
+    fi
+done
+
+echo ""
 
 echo -n "Size:  "
 du -h $result
