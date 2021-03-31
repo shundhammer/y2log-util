@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Grep y2log for external commands executed by libstorage-ng
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+infile=$*
+
+if [ -z "$infile" ]; then
+    if [ -f y2log-full.log ]; then
+        infile=y2log-full.log
+    else
+        infile=y2log
+    fi
+fi
+
+grep -h 'SystemCmd Executing:' $infile | \
+    sed -e 's/<[0-9]>.*SystemCmd Executing:"/ /' \
+        -e 's/"$//'
