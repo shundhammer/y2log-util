@@ -231,7 +231,7 @@ multiple y2log files stretching over multiple dates are involved.
 
 
 
-## y2log-clean-ceetah
+## y2log-clean-cheetah
 
 This cleans up misleading error log lines written by Cheetah which just logs
 all regular stdout of commands that it invokes as errors. Because reasons. And
