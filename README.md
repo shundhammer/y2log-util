@@ -117,8 +117,8 @@ The scripts in this section are intended for simplifying y2logs.
 ## y2log-clean
 
 This is a wrapper script to strip off common cruft in y2logs, to simplify the
-line header, and to downgrade misleading Cheetah error log lines from <3> to
-<1>.
+line header, and to downgrade misleading Cheetah error log lines from `<3>` to
+`<1>`.
 
 All operations are done in-place, so make sure to copy the original file if you
 want to keep the untouched version.
@@ -241,8 +241,9 @@ This makes searching for real errors a royal PITA because a simple `dracut` run
 will easily flood the y2log with some hundred error log lines, drowning out all
 real errors.
 
-This script simply downgrades all <3> (error) log lines to <1> (milestone) if
-`cheetah` is found in the same line. This operation is in-place in the file.
+This script simply downgrades all `<3>` (_error_) log lines to `<1>`
+(_milestone_) if `cheetah` is found in the same line. This operation is
+in-place in the file.
 
 Usage:
 
@@ -256,7 +257,7 @@ This is included in the more general `y2log-clean` script.
 ## y2log-strip-debug
 
 This strips off debug lines from one or more y2log files in-place; it removes
-lines with log level <0> like these:
+lines with log level `<0>` like these:
 
     2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
     14:07:42 <0> myhost(4711) [Ruby]
