@@ -67,7 +67,7 @@ This shows the headers (the full y2base call) from split logs (that were
 created by y2log-split):
 
     y2log-headers
-    
+
     y2-00-installation.log:  2021-02-26 22:29:37  y2base called with ["installation", "--arg", "initial", "ncurses"]
     y2-01-menu.log:  2021-02-26 17:42:37  y2base called with ["menu", "ncurses", "-name", "YaST2", "-icon", "yast"]
     y2-02-sw_single.log:  2021-02-26 17:42:40  y2base called with ["sw_single", "ncurses", "-name", "YaST2", "-icon", "yast"]
@@ -86,7 +86,7 @@ This shows y2base calls from the raw (gzipped and not split) y2log and
 y2log-[1-9].gz files:
 
     y2log-y2base-calls
-    
+
     y2log-1.gz:  2021-02-26 22:29:37  y2base called with ["installation", "--arg", "initial", "ncurses"]
     y2log:       2021-02-26 17:42:37  y2base called with ["menu", "ncurses", "-name", "YaST2", "-icon", "yast"]
     y2log:       2021-02-26 17:42:40  y2base called with ["sw_single", "ncurses", "-name", "YaST2", "-icon", "yast"]
@@ -143,7 +143,7 @@ y2logs like this
 
     // global string String::Quote (string)
     // global string String::UnQuote (string)
-    
+
     -------------------------------- accept ----------------------------
 
     // filename: "/usr/share/YaST2/data/languages/language_af_ZA.ycp"
@@ -173,7 +173,7 @@ From
     2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:44: ...
 
 To
-    
+
     14:07:42 <1> [Ruby] foobar.rb:42: Hello world!
     14:07:42 <1> [Ruby] foobar.rb:43: ...
     14:07:42 <1> [Ruby] foobar.rb:44: ...
@@ -275,7 +275,7 @@ debug logging away to a safe place before using this script:
 
 It is advised to do this together with the other scripts here:
 
-    y2log-clean y2log    
+    y2log-clean y2log
     cp y2log y2log-debug
     y2log-strip-debug y2log
 
@@ -311,7 +311,7 @@ terminal window.
 
 02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):95 evaluate (`Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bootloa
 
-02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n 
+02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n
 
 ...
 ...
