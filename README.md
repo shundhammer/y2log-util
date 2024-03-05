@@ -256,7 +256,7 @@ This is included in the more general `y2log-clean` script.
 ## y2log-strip-debug
 
 This strips off debug lines from one or more y2log files in-place; it removes
-lines with log level <0> like this:
+lines with log level <0> like these:
 
     2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
     14:07:42 <0> myhost(4711) [Ruby]
@@ -279,8 +279,8 @@ It is advised to do this together with the other scripts here:
     cp y2log y2log-debug
     y2log-strip-debug y2log
 
-Now there are two cleaned-up y2logs: y2log with debugging and y2log-debug
-without.
+Now there are two cleaned-up y2logs: y2log without debugging and y2log-debug
+with.
 
 
 # Extracting Embedded Files
