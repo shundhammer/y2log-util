@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Extrac the first AutoYaST XML profile from a y2log file.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+
+y2log=$1
+
+if [ -z "$y2log" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log>"
+    echo
+    echo "Extract the first AutoYaST XML profile from a y2log file."
+    echo
+    exit 1
+fi
+
+grep 'DOCTYPE profile' $y2log			\
+  | head -n 1					\
+  | sed						\
+    -e 's/^.*\(<?xml version\)/\1/'		\
+    -e 's/\\n/\n/g'				\
+    -e 's/\\"/"/g'

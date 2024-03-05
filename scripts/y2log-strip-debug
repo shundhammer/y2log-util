@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Strip debug lines from one or more y2log files in-place.
+#
+#   2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo "  Strip debug lines (log level 0) from one or more y2log files in-place:"
+    echo
+    echo "2024-02-30 14:07:42 <0> myhost(4711) [Ruby]"
+    echo
+    exit 1
+fi
+
+echo
+echo "++ Lines before:"
+wc -l $y2logs
+
+echo
+echo "Stripping debug level lines (<0>)..."
+
+for log in $y2logs ; do
+    # match  2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+    
+    perl -i.bak -n -e 'print unless /^20\d\d-\d\d-\d\d \d\d:\d\d:\d\d <0>/p;' $log
+done
+
+echo
+echo "-- Lines after:"
+wc -l $y2logs
+echo

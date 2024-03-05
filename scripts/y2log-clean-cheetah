@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Clean cheetah error lines in-place in one or more y2log files:
+# Downgrade <3> to <1> because cheetach reports everything as error.
+#
+#   2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo "  Clean cheetah error lines in-place in one or more y2log files:"
+    echo "  Downgrade <3> to <1> because cheetach reports everything as error."
+    echo
+    exit 1
+fi
+
+echo
+echo "Cleaning cheetah erros: dowgrading from <3> to <1>..."
+echo
+
+for log in $y2logs ; do
+    # sample line:  2024-02-30 14:07:42 <3> myhost(4711) [Ruby] ... cheetah
+
+    sed -i.bak -e '/ <3> .*cheetah/s/<3>/<1>/' $log
+done
+

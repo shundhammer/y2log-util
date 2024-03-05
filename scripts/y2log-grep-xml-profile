@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Grep one or more y2logs for AutoYaST XML profiles.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo "Grep one or more y2logs for AutoYaST XML profiles."
+    echo "This will typically only work with debug logging."
+    echo
+    exit 1
+fi
+
+sed -n -e '/DOCTYPE profile/s/<.>.*\] //p' $y2logs | cut -c1-300 | sed -e 's/$/\n/'
+
+echo
+echo -n "*** Number of profiles: "
+grep -c 'DOCTYPE profile' $y2logs
+echo

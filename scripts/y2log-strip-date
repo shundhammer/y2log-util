@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Strip the date part from the timestamp from one or more y2log files in-place.
+#
+#   2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo "  Strip the date part from the timestamp from one or more y2log files in-place."
+    echo
+    echo "2024-02-30 14:07:42 <0> myhost(4711) [Ruby]"
+    echo "->"
+    echo "14:07:42 <0> myhost(4711) [Ruby]"
+    echo
+    echo
+    exit 1
+fi
+
+echo
+echo "Stripping date from timestamp..."
+echo
+
+for log in $y2logs ; do
+    # sample line:  2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+    
+    perl -p -i.bak -e 's/^20\d\d-\d\d-\d\d //' $log
+done
+
