@@ -363,7 +363,6 @@ is usually a good idea to filter those out:
 02:25:13  /usr/bin/uname -m
 02:25:13  /usr/bin/test -d /sys/firmware/efi/efivars
 02:25:13  /usr/bin/getconf PAGESIZE
-02:25:13  /usr/bin/udevadm settle --timeout=20
 02:25:13  /bin/ls -1 --sort=none /sys/block
 02:25:13  /usr/bin/stat --format %f /dev/sda
 02:25:13  /usr/bin/udevadm info /dev/sda
@@ -377,12 +376,10 @@ is usually a good idea to filter those out:
 21:30:00  /sbin/mdadm --assemble --scan
 21:30:00  /sbin/dmraid --activate yes --no_partitions
 21:30:00  /sbin/lvs --reportformat json --config log { command_names = 0 prefix = "" } --units b --nosuffix --all --options lv_name,lv_uuid,vg_name,vg_uuid,lv_role,lv_attr,lv_size,origin_size,segtype,stripes,stripe_size,chunk_size,pool_lv,pool_lv_uuid,origin,origin_uuid,data_lv,data_lv_uuid,metadata_lv,metadata_lv_uuid
-21:30:01  /usr/bin/udevadm settle --timeout=20
 21:30:01  /sbin/blkid -c /dev/null
 21:30:01  /usr/bin/uname -m
 21:30:01  /usr/bin/test -d /sys/firmware/efi/efivars
 21:30:01  /usr/bin/getconf PAGESIZE
-21:30:01  /usr/bin/udevadm settle --timeout=20
 21:30:01  /bin/ls -1 --sort=none /sys/block
 21:30:01  /usr/bin/stat --format %f /dev/sda
 21:30:01  /usr/bin/udevadm info /dev/sda
@@ -390,4 +387,7 @@ is usually a good idea to filter those out:
 21:30:01  /usr/bin/lsscsi --transport
 21:30:01  /sbin/multipath -d -v 2 -ll
 21:30:01  /sbin/dmraid --sets=active -ccc
+21:30:01  /sbin/blkid -c /dev/null
+21:30:01  /usr/sbin/parted --version
+21:30:01  /usr/sbin/parted --script --machine /dev/sda unit s print
 ```
