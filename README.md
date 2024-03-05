@@ -307,19 +307,34 @@ terminal window.
 ```
 % y2log-grep-xml-profile y2log-debug
 
-02:25:14 ScriptingAgent.cc(executeSubagentCommand):592 opt: "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bootloader t=\"map\">\n    <global t=\"map\">\n      <append>showopts</append>\n      <t
+02:25:14 ScriptingAgent.cc(executeSubagentCommand):592 opt: "<?xml version=\"1.0\"?>\n<!DOCTYPE
+profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\"
+xmlns:config=\"http://www.suse.com/1.0/configns\">\n <bootloader t=\"map\">\n <global t=\"map\">\n
+<append>showopts</append>\n <t
 
-02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):95 evaluate (`Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bootloa
+02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):95 evaluate (`Write (.string,
+"/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile
+xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n
+<bootloa
 
-02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n
+02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write
+(.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE
+profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\"
+xmlns:config=\"http://www.suse.com/1.0/configns\">\n
 
 ...
 ...
 ...
 
-21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bo
+21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write
+(.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE
+profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\"
+xmlns:config=\"http://www.suse.com/1.0/configns\">\n <bo
 
-21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):121 After code evaluation: `Write (.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n
+21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):121 After code evaluation: `Write
+(.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE
+profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\"
+xmlns:config=\"http://www.suse.com/1.0/configns\">\n
 
 
 *** Number of profiles: 24
