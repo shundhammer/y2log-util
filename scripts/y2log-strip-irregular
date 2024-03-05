@@ -33,7 +33,7 @@ echo "Stripping irregular lines..."
 for log in $y2logs ; do
     # match  2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
     
-    perl -i.bak -n -e 'print if /^20\d\d-\d\d-\d\d \d\d:\d\d:\d\d/p;' $log
+    perl -i.bak -n -e 'print if /^(20\d\d-\d\d-\d\d )?\d\d:\d\d:\d\d/p;' $log
 done
 
 echo

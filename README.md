@@ -105,3 +105,222 @@ This removes the files created by y2log-split, i.e. all files that match
 `y2-[0-9][0-9]*.log`.
 
 Caution: This does not ask for confirmation, it just does it.
+
+
+
+
+# Cleaning and Stripping
+
+The scripts in this section are intended for simplifying y2logs.
+
+
+## y2log-clean
+
+This is a wrapper script to strip off common cruft in y2logs, to simplify the
+line header, and to downgrade misleading Cheetah error log lines from <3> to
+<1>.
+
+All operations are done in-place, so make sure to copy the original file if you
+want to keep the untouched version.
+
+This script can be used commonly for y2logs with or without debug logging.
+
+Usage:
+
+    y2log-clean y2-??-*.log
+
+
+## y2log-strip-irregular
+
+This strips off irregular lines from one or more y2log files in-place. It
+leaves only those that match the standard log line pattern:
+
+  2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+
+This is a remedy against all that cruft from random places that fills up the
+y2logs like this
+
+
+    // global string String::Quote (string)
+    // global string String::UnQuote (string)
+    
+    -------------------------------- accept ----------------------------
+
+    // filename: "/usr/share/YaST2/data/languages/language_af_ZA.ycp"
+    textdomain "languages_db";
+    return $["af_ZA":["Afrikaans", "Afrikaans", ".UTF-8", "", _("Afrikaans")], "keyboard":"english-us"];
+
+
+It is hopeless that those who thought it would be a good idea to just dump that
+stuff into the y2log will ever clean up their mess; that hasn't happened over
+the last 15-20 years, so it won't happen in the next 15-20 years.
+
+This `y2log-strip-irregular` script gets rid of it.
+
+This is included in the more general `y2log-clean` script.
+
+
+
+## y2log-strip-date-hostname
+
+This strips off the date part of the log line headers, the hostname and the
+PID, so it considerably shortens the line header:
+
+From
+
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:42: Hello world!
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:43: ...
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:44: ...
+
+To
+    
+    14:07:42 <1> [Ruby] foobar.rb:42: Hello world!
+    14:07:42 <1> [Ruby] foobar.rb:43: ...
+    14:07:42 <1> [Ruby] foobar.rb:44: ...
+
+
+This is included in the more general `y2log-clean` script.
+
+The rationale is that those parts are always the same anywhere for each log
+line in all normal cases, so we can save some screen space; and, more
+importantly, give Bugzilla less opportunities to butcher any pasted content,
+like it loves to do.
+
+
+## y2log-strip-date
+
+This does only the date stripping part of y2log-strip-date-hostname:
+
+From
+
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:42: Hello world!
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:43: ...
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:44: ...
+
+To
+
+    14:07:42 <1> myhost(4711) [Ruby] foobar.rb:42: Hello world!
+    14:07:42 <1> myhost(4711) [Ruby] foobar.rb:43: ...
+    14:07:42 <1> myhost(4711) [Ruby] foobar.rb:44: ...
+
+
+This might be useful if the hostname actually changes, or if multiple YaST
+processes are logging into the same file at the same time.
+
+
+
+## y2log-strip-hostname
+
+This does only the hostname/PIDstripping part of y2log-strip-date-hostname:
+
+From
+
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:42: Hello world!
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:43: ...
+    2024-02-30 14:07:42 <1> myhost(4711) [Ruby] foobar.rb:44: ...
+
+To
+
+    2024-02-30 14:07:42 <1> [Ruby] foobar.rb:42: Hello world!
+    2024-02-30 14:07:42 <1> [Ruby] foobar.rb:43: ...
+    2024-02-30 14:07:42 <1> [Ruby] foobar.rb:44: ...
+
+
+This might be useful if the date actually changes in the same y2log, or if
+multiple y2log files stretching over multiple dates are involved.
+
+
+
+## y2log-clean-ceetah
+
+This cleans up misleading error log lines written by Cheetah which just logs
+all regular stdout of commands that it invokes as errors. Because reasons. And
+despite the bug report about this that was filed years ago.
+
+This makes searching for real errors a royal PITA because a simple `dracut` run
+will easily flood the y2log with some hundred error log lines, drowning out all
+real errors.
+
+This script simply downgrades all <3> (error) log lines to <1> (milestone) if
+`cheetah` is found in the same line. This operation is in-place in the file.
+
+Usage:
+
+    y2log-clean-cheetah y2log
+
+
+This is included in the more general `y2log-clean` script.
+
+
+
+## y2log-strip-debug
+
+This strips off debug lines from one or more y2log files in-place; it removes
+lines with log level <0> like this:
+
+    2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
+    14:07:42 <0> myhost(4711) [Ruby]
+    14:07:42 <0> [Ruby]
+    14:07:42 <0> myhost(4711) [Ruby]
+
+
+Sometimes it's useful to have debug logging, but mostly it's just additional
+noise that drowns out useful information.
+
+Since this operates in-place, it is advised to copy the original file with
+debug logging away to a safe place before using this script:
+
+    cp y2log y2log-debug
+    y2log-strip-debug y2log
+
+It is advised to do this together with the other scripts here:
+
+    y2log-clean y2log    
+    cp y2log y2log-debug
+    y2log-strip-debug y2log
+
+Now there are two cleaned-up y2logs: y2log with debugging and y2log-debug
+without.
+
+
+## y2log-get-xml-profile
+
+This extracts an XML AutoYaST profile from an y2log and formats it in a
+human-readable way, with \n translated to newlines etc. Typically, this needs
+to be an y2log with debug logging.
+
+Usage:
+
+    y2log-get-xml-profile y2log-debug >profile.xml
+
+At the time of this writing, this uses the first XML profile that it
+finds. This might change in the future.
+
+
+## y2log-grep-xml-profile
+
+This searches one or more y2log files for XML AutoYaST profiles. It cuts off
+the output after a reasonable amount of characters to avoid flooding the
+terminal window.
+
+
+```
+% y2log-grep-xml-profile y2log-debug
+
+02:25:14 ScriptingAgent.cc(executeSubagentCommand):592 opt: "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bootloader t=\"map\">\n    <global t=\"map\">\n      <append>showopts</append>\n      <t
+
+02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):95 evaluate (`Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bootloa
+
+02:25:14 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/base_profile.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n 
+
+...
+...
+...
+
+21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):100 Going to evaluate `Write (.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n  <bo
+
+21:26:15 ../../libscr/src/include/scr/Y2AgentComponent.h(evaluate):121 After code evaluation: `Write (.string, "/tmp/YaST2-06833-60VX5P/autoinst.xml", "<?xml version=\"1.0\"?>\n<!DOCTYPE profile>\n<profile xmlns=\"http://www.suse.com/1.0/yast2ns\" xmlns:config=\"http://www.suse.com/1.0/configns\">\n
+
+
+*** Number of profiles: 24
+```
