@@ -31,7 +31,7 @@ echo "Stripping debug level lines (<0>)..."
 for log in $y2logs ; do
     # match  2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
     
-    perl -i.bak -n -e 'print unless /^20\d\d-\d\d-\d\d \d\d:\d\d:\d\d <0>/p;' $log
+    perl -i.bak -n -e 'print unless /^(20\d\d-\d\d-\d\d )?\d\d:\d\d:\d\d <0>/p;' $log
 done
 
 echo
