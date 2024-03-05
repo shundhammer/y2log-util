@@ -283,7 +283,7 @@ Now there are two cleaned-up y2logs: y2log without debugging and y2log-debug
 with.
 
 
-# Extracting Embedded Files
+# Extracting Embedded Information
 
 ## y2log-get-xml-profile
 
@@ -341,4 +341,53 @@ xmlns:config=\"http://www.suse.com/1.0/configns\">\n
 
 
 *** Number of profiles: 24
+```
+
+
+## y2log-grep-systemcmd
+
+This extracts the external commands executed with the libstorage `SystemCmd` class to get a good
+impression of storage operations:
+
+    y2log-grep-systemcmd
+
+By default, this uses `y2log-full.log` (the result of `y2log-merge`), and if there is no file with
+that name, `y2log`. You can also specify a file on the command line.
+
+Since libstorage executes a lot of `udevadm settle` commands that are normally not very relevant, it
+is usually a good idea to filter those out:
+
+```
+% y2log-grep-systemcmd | grep -v 'udevadm settle'
+
+02:25:13  /usr/bin/uname -m
+02:25:13  /usr/bin/test -d /sys/firmware/efi/efivars
+02:25:13  /usr/bin/getconf PAGESIZE
+02:25:13  /usr/bin/udevadm settle --timeout=20
+02:25:13  /bin/ls -1 --sort=none /sys/block
+02:25:13  /usr/bin/stat --format %f /dev/sda
+02:25:13  /usr/bin/udevadm info /dev/sda
+02:25:14  /usr/bin/uname -m
+02:25:14  /usr/bin/test -d /sys/firmware/efi/efivars
+02:25:14  /usr/bin/getconf PAGESIZE
+21:26:15  /usr/bin/uname -m
+21:26:15  /usr/bin/test -d /sys/firmware/efi/efivars
+21:26:15  /usr/bin/getconf PAGESIZE
+21:30:00  /sbin/multipath -d -v 2
+21:30:00  /sbin/mdadm --assemble --scan
+21:30:00  /sbin/dmraid --activate yes --no_partitions
+21:30:00  /sbin/lvs --reportformat json --config log { command_names = 0 prefix = "" } --units b --nosuffix --all --options lv_name,lv_uuid,vg_name,vg_uuid,lv_role,lv_attr,lv_size,origin_size,segtype,stripes,stripe_size,chunk_size,pool_lv,pool_lv_uuid,origin,origin_uuid,data_lv,data_lv_uuid,metadata_lv,metadata_lv_uuid
+21:30:01  /usr/bin/udevadm settle --timeout=20
+21:30:01  /sbin/blkid -c /dev/null
+21:30:01  /usr/bin/uname -m
+21:30:01  /usr/bin/test -d /sys/firmware/efi/efivars
+21:30:01  /usr/bin/getconf PAGESIZE
+21:30:01  /usr/bin/udevadm settle --timeout=20
+21:30:01  /bin/ls -1 --sort=none /sys/block
+21:30:01  /usr/bin/stat --format %f /dev/sda
+21:30:01  /usr/bin/udevadm info /dev/sda
+21:30:01  /usr/bin/lsscsi --version
+21:30:01  /usr/bin/lsscsi --transport
+21:30:01  /sbin/multipath -d -v 2 -ll
+21:30:01  /sbin/dmraid --sets=active -ccc
 ```
