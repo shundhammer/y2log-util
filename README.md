@@ -12,7 +12,7 @@ They are provided in the hope that they may be useful, but there is absolutely
 no warranty and no support. Use at your own risk.
 
 
-# The Scripts
+# Merging and Splitting
 
 ## y2log-merge
 
