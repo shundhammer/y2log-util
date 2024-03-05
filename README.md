@@ -63,10 +63,10 @@ You will get files like
 
 ## y2log-headers
 
-This shows the headers (the full y2base call) from split logs (that were
-created by y2log-split):
+This shows the headers (the full `y2base` call) from split logs (that were
+created by `y2log-split`):
 
-    y2log-headers
+    % y2log-headers
 
     y2-00-installation.log:  2021-02-26 22:29:37  y2base called with ["installation", "--arg", "initial", "ncurses"]
     y2-01-menu.log:  2021-02-26 17:42:37  y2base called with ["menu", "ncurses", "-name", "YaST2", "-icon", "yast"]
@@ -82,10 +82,10 @@ created by y2log-split):
 
 ## y2log-y2base-calls
 
-This shows y2base calls from the raw (gzipped and not split) y2log and
-y2log-[1-9].gz files:
+This shows y2base calls from the raw (gzipped and not split) `y2log` and
+`y2log-[1-9].gz` files:
 
-    y2log-y2base-calls
+    % y2log-y2base-calls
 
     y2log-1.gz:  2021-02-26 22:29:37  y2base called with ["installation", "--arg", "initial", "ncurses"]
     y2log:       2021-02-26 17:42:37  y2base called with ["menu", "ncurses", "-name", "YaST2", "-icon", "yast"]
@@ -101,7 +101,7 @@ y2log-[1-9].gz files:
 
 ## y2log-rm-split-logs
 
-This removes the files created by y2log-split, i.e. all files that match
+This removes the files created by `y2log-split`, i.e. all files that match
 `y2-[0-9][0-9]*.log`.
 
 Caution: This does not ask for confirmation, it just does it.
@@ -138,7 +138,7 @@ leaves only those that match the standard log line pattern:
   2024-02-30 14:07:42 <0> myhost(4711) [Ruby]
 
 This is a remedy against all that cruft from random places that fills up the
-y2logs like this
+y2logs like this:
 
 
     // global string String::Quote (string)
@@ -181,7 +181,7 @@ To
 
 This is included in the more general `y2log-clean` script.
 
-The rationale is that those parts are always the same anywhere for each log
+The rationale is that those parts are always the same anyway for each log
 line in all normal cases, so we can save some screen space; and, more
 importantly, give Bugzilla less opportunities to butcher any pasted content,
 like it loves to do.
@@ -189,7 +189,7 @@ like it loves to do.
 
 ## y2log-strip-date
 
-This does only the date stripping part of y2log-strip-date-hostname:
+This does only the date stripping part of `y2log-strip-date-hostname`:
 
 From
 
@@ -211,7 +211,7 @@ processes are logging into the same file at the same time.
 
 ## y2log-strip-hostname
 
-This does only the hostname/PIDstripping part of y2log-strip-date-hostname:
+This does only the hostname/PID stripping part of `y2log-strip-date-hostname`:
 
 From
 
@@ -279,8 +279,8 @@ It is advised to do this together with the other scripts here:
     cp y2log y2log-debug
     y2log-strip-debug y2log
 
-Now there are two cleaned-up y2logs: y2log without debugging and y2log-debug
-with.
+Now there are two cleaned-up y2logs: `y2log` without debug logging and
+`y2log-debug` with.
 
 
 # Extracting Embedded Information
