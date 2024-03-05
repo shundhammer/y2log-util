@@ -283,6 +283,8 @@ Now there are two cleaned-up y2logs: y2log with debugging and y2log-debug
 without.
 
 
+# Extracting Embedded Files
+
 ## y2log-get-xml-profile
 
 This extracts an XML AutoYaST profile from an y2log and formats it in a
@@ -295,6 +297,7 @@ Usage:
 
 At the time of this writing, this uses the first XML profile that it
 finds. This might change in the future.
+
 
 
 ## y2log-grep-xml-profile
