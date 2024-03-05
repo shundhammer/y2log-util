@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Clean up one or more y2log files in-place.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo #  Clean up one or more y2log files in-place."
+    echo
+    exit 1
+fi
+
+
+y2log-strip-irregular      $y2logs
+y2log-strip-date-hostname  $y2logs
+y2log-clean-cheetah        $y2logs
