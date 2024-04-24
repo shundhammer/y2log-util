@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# Strip cruft mesages from one or more y2log files in-place.
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+
+y2logs=$*
+
+if [ -z "$y2logs" ]; then
+    echo
+    echo "Usage: $0 <y2-01.log> [y2-02.log] ..."
+    echo
+    echo "  Strip cruft messages from one or more y2log files:"
+    echo
+    echo "[Pkg] modules/PackageCallbacks.rb:9999 Pkg Builtin called: Callback..."
+    echo "[libstorage] SystemCmd.cc(doExecute):999 stopwatch ..."
+    echo "[libstorage] SystemCmd.cc(execute):999 timestamp ..."
+    echo "[libstorage] SystemCmd.cc(step_fork_and_exec):999 child_pid:9999"
+    echo "[libstorage] SystemCmd.cc(SystemCmd):999 constructor SystemCmd(...)"
+    echo "[libstorage] SystemCmd.cc(add_line):713 line stdout[99] 'loop99'"
+    echo "[agent-ini] IniParser.cc(getTimeStamp):999 Unable to stat '/etc/sysctl.conf'"
+    echo "[agent-ini] IniParser.cc(getTimeStamp):999 Unable to stat '/etc/install.inf'"
+    echo
+    echo "This also shortens stdout output for libstorage and cheetah shell commands."
+    echo
+    exit 1
+fi
+
+echo
+echo "++ Lines before:"
+wc -l $y2logs
+
+echo
+echo "Stripping cruft messages..."
+
+for log in $y2logs ; do
+    sed -E -i.bak \
+        -e '/\[Pkg\].*Pkg Builtin called: Callback/d'                           \
+        -e '/\[libstorage\] SystemCmd.cc.* (stopwatch|timestamp|child_pid)/d'   \
+        -e '/\[libstorage\] SystemCmd.cc.* constructor SystemCmd/d'             \
+        -e '/\[libstorage\] SystemCmd.cc(add_line):.* line stdout.*loop/d'      \
+        -e '/\[agent-ini\] IniParser.cc.*Unable to stat.*(sysctl.conf|install.inf)/d'   \
+        -e 's/\[Ruby\] lib\/cheetah.*Standard output:/  /'       \
+        -e 's/\[libstorage\].*line stdout\[[0-9]+\] / /'       \
+        $log
+done
+
+
+echo
+echo "-- Lines after:"
+wc -l $y2logs
+echo

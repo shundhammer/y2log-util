@@ -21,3 +21,4 @@ fi
 y2log-strip-irregular      $y2logs
 y2log-strip-date-hostname  $y2logs
 y2log-clean-cheetah        $y2logs
+y2log-strip-cruft          $y2logs

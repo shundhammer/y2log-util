@@ -231,6 +231,57 @@ multiple y2log files stretching over multiple dates are involved.
 
 
 
+## y2log-strip-cruft
+
+This strips common completely useless messages that only obscur important ones:
+
+```
+[Pkg] modules/PackageCallbacks.rb:9999 Pkg Builtin called: Callback...
+[libstorage] SystemCmd.cc(doExecute):999 stopwatch ...
+[libstorage] SystemCmd.cc(execute):999 timestamp ...
+[libstorage] SystemCmd.cc(step_fork_and_exec):999 child_pid:9999
+[libstorage] SystemCmd.cc(SystemCmd):999 constructor SystemCmd(...)
+[libstorage] SystemCmd.cc(add_line):713 line stdout[99] 'loop99'
+[agent-ini] IniParser.cc(getTimeStamp):999 Unable to stat '/etc/sysctl.conf'
+[agent-ini] IniParser.cc(getTimeStamp):999 Unable to stat '/etc/install.inf'
+```
+
+This also shortens the boilerplate stdout output for libstorage and cheetah shell commands:
+
+```
+2024-04-16 17:36:56 <1> myhost(9999) [libstorage] SystemCmd.cc(add_line):713 line stdout[0] 'foo'
+2024-04-16 17:36:56 <1> myhost(9999) [libstorage] SystemCmd.cc(add_line):713 line stdout[1] 'bar'
+2024-04-16 17:36:56 <1> myhost(9999) [libstorage] SystemCmd.cc(add_line):713 line stdout[2] 'baz'
+```
+to
+
+```
+2024-04-16 17:36:56 <1> myhost(9999)  'foo'
+2024-04-16 17:36:56 <1> myhost(9999)  'bar'
+2024-04-16 17:36:56 <1> myhost(9999)  'baz'
+```
+
+
+```
+2024-04-16 15:03:48 <1> myhost(9999) [Ruby] lib/cheetah.rb(log_stream_line):211 Standard output: foo
+2024-04-16 15:03:48 <1> myhost(9999) [Ruby] lib/cheetah.rb(log_stream_line):211 Standard output: bar
+2024-04-16 15:03:48 <1> myhost(9999) [Ruby] lib/cheetah.rb(log_stream_line):211 Standard output: baz
+```
+
+to
+
+```
+2024-04-16 15:03:48 <1> myhost(9999)  foo
+2024-04-16 15:03:48 <1> myhost(9999)  bar
+2024-04-16 15:03:48 <1> myhost(9999)  baz
+```
+
+The context is still clear from the line immediately preceding the block of
+output which contains the executed command.
+
+
+
+
 ## y2log-clean-cheetah
 
 This cleans up misleading error log lines written by Cheetah which just logs
