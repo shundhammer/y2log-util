@@ -40,7 +40,7 @@ for log in $y2logs ; do
         -e '/\[Pkg\].*Pkg Builtin called: Callback/d'                           \
         -e '/\[libstorage\] SystemCmd.cc.* (stopwatch|timestamp|child_pid)/d'   \
         -e '/\[libstorage\] SystemCmd.cc.* constructor SystemCmd/d'             \
-        -e '/\[libstorage\] SystemCmd.cc(add_line):.* line stdout.*loop/d'      \
+        -e '/\[libstorage\] SystemCmd.cc.*(line stdout|Adding Line).*loop/d'    \
         -e '/\[agent-ini\] IniParser.cc.*Unable to stat.*(sysctl.conf|install.inf)/d'   \
         -e 's/\[Ruby\] lib\/cheetah.*Standard output:/  /'      \
         -e 's/\[libstorage\].*line stdout\[[0-9]+\] / /'        \
