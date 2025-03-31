@@ -16,12 +16,12 @@ fi
 rm -f y2-[0-9][0-9]*.log
 
 # Split
-csplit -z -q -f 'y2-' -b '%02d.log' $SRC '/.*y2base called with.*/' '{*}'
+csplit -z -q -f 'y2-' -b '%03d.log' $SRC '/.*y2base called with.*/' '{*}'
 
 
 # Rename the resulting files: Include the called YaST module in the name
 
-for LOG in y2-[0-9][0-9].log;  do
+for LOG in y2-[0-9][0-9][0-9].log;  do
     MODULE=$(grep 'y2base called with' $LOG | sed -e 's/^.*called with \["//' -e 's/".*$//')
 
     if [ -n "$MODULE" ]; then
@@ -30,7 +30,7 @@ for LOG in y2-[0-9][0-9].log;  do
     fi
 done
 
-wc -l y2-[0-9][0-9]*.log
+wc -l y2-[0-9][0-9][0-9]*.log
 
 # Show YaST invocation line for each result file
 # grep 'y2base called with' y2-??.log | sed -e 's/\.log:/.log:  /' -e 's/<1>.*y2base/ y2base/'
