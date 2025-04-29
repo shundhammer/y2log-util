@@ -443,3 +443,44 @@ is usually a good idea to filter those out:
 21:30:01  /usr/sbin/parted --version
 21:30:01  /usr/sbin/parted --script --machine /dev/sda unit s print
 ```
+
+
+## y2log-rpm-calls
+
+This extracts all libzypp calls to rpm, i.e. all packages or patterns that were
+installed.
+
+By default, this uses `y2log-full.log` (the result of `y2log-merge`), and if there is no file with
+that name, `y2log`. You can also specify a file on the command line.
+
+
+```
+% y2log-rpm-calls | grep libvirt
+
+17:04:26  rpm -U  system-group-libvirt-20170617-160000.2.2.noarch.rpm
+17:04:28  rpm -U  system-user-libvirt-dbus-1.4.1-160000.1.15.noarch.rpm
+17:06:15  rpm -U  libvirt-libs-11.1.0-160000.2.5.ppc64le.rpm
+17:06:37  rpm -U  python313-libvirt-python-11.1.0-160000.1.4.ppc64le.rpm
+17:06:38  rpm -U  libvirt-glib-1_0-0-5.0.0-160000.2.4.ppc64le.rpm
+17:06:38  rpm -U  libvirt-daemon-log-11.1.0-160000.2.5.ppc64le.rpm
+17:06:38  rpm -U  libvirt-daemon-lock-11.1.0-160000.2.5.ppc64le.rpm
+17:06:38  rpm -U  libvirt-client-11.1.0-160000.2.5.ppc64le.rpm
+17:07:06  rpm -U  libvirt-dbus-1.4.1-160000.1.15.ppc64le.rpm
+17:07:06  rpm -U  libvirt-daemon-common-11.1.0-160000.2.5.ppc64le.rpm
+17:07:18  rpm -U  libvirt-daemon-plugin-lockd-11.1.0-160000.2.5.ppc64le.rpm
+17:07:18  rpm -U  libvirt-daemon-driver-storage-core-11.1.0-160000.2.5.ppc64le.rpm
+17:07:18  rpm -U  libvirt-daemon-driver-secret-11.1.0-160000.2.5.ppc64le.rpm
+17:07:19  rpm -U  libvirt-daemon-driver-nwfilter-11.1.0-160000.2.5.ppc64le.rpm
+17:07:19  rpm -U  libvirt-daemon-driver-nodedev-11.1.0-160000.2.5.ppc64le.rpm
+17:07:20  rpm -U  libvirt-daemon-driver-network-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-scsi-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-mpath-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-logical-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-iscsi-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-disk-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-config-network-11.1.0-160000.2.5.ppc64le.rpm
+17:07:26  rpm -U  libvirt-daemon-driver-storage-iscsi-direct-11.1.0-160000.2.5.ppc64le.rpm
+17:07:27  rpm -U  libvirt-daemon-driver-storage-11.1.0-160000.2.5.ppc64le.rpm
+17:08:15  rpm -U  libvirt-daemon-driver-qemu-11.1.0-160000.2.5.ppc64le.rpm
+17:08:18  rpm -U  libvirt-daemon-qemu-11.1.0-160000.2.5.ppc64le.rpm
+```
