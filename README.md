@@ -447,11 +447,12 @@ is usually a good idea to filter those out:
 
 ## y2log-rpm-calls
 
-This extracts all libzypp calls to rpm, i.e. all packages or patterns that were
-installed.
+This extracts all libzypp calls to `rpm -U`, i.e. all packages or patterns that
+were installed.
 
-By default, this uses `y2log-full.log` (the result of `y2log-merge`), and if there is no file with
-that name, `y2log`. You can also specify a file on the command line.
+By default, this uses `y2log-full.log` (the result of `y2log-merge`), and if
+there is no file with that name, `y2log`. You can also specify a file on the
+command line.
 
 
 ```
