@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Grep y2log for external commands executed by libstorage-ng
+# Grep y2log for external rpm commands executed by libzypp
 #
 # Author:  Stefan Hundhammer <shundhammer@suse.com>
 # License: GPL V2
