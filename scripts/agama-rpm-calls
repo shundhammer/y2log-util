@@ -21,6 +21,6 @@ fi
 grep -h -E "Executing.*'rpm'.*'-U'" $infile | \
     sed -E \
         -e 's:^[A-Z][a-z]+ [0-9]+ ::' \
-        -e 's:agama.*.*/mnt/var/cache/zypp/packages/: rpm -U  :' \
+        -e 's: [A-Za-z]+.* agama-web-server.*.*/mnt/var/cache/zypp/packages/: rpm -U  :' \
         -e 's/-U.*:/-U  /' \
         -e "s:'::"
