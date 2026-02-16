@@ -448,7 +448,7 @@ is usually a good idea to filter those out:
 ## y2log-rpm-calls
 
 This extracts all libzypp calls to `rpm -U`, i.e. all packages or patterns that
-were installed.
+were installed, and reformats them human readable.
 
 By default, this uses `y2log-full.log` (the result of `y2log-merge`), and if
 there is no file with that name, `y2log`. You can also specify a file on the
@@ -484,4 +484,23 @@ command line.
 17:07:27  rpm -U  libvirt-daemon-driver-storage-11.1.0-160000.2.5.ppc64le.rpm
 17:08:15  rpm -U  libvirt-daemon-driver-qemu-11.1.0-160000.2.5.ppc64le.rpm
 17:08:18  rpm -U  libvirt-daemon-qemu-11.1.0-160000.2.5.ppc64le.rpm
+```
+
+
+## agama-rpm-calls
+
+Similar to `y2log-rpm-calls`, this extracts all libzypp calls to `rpm -U` from
+the `journald.out.log` of an agama-logs tarball and reformats them human
+readable. This keeps the last _product_ component from the RPM path.
+
+By default, this uses `journald.out.log`, but you can also specify a file on
+the command line.
+
+```
+% agama-rpm-calls | grep patterns
+02:03:36  rpm -U  SLE-Product-SLES-16.1/x86_64/patterns-base-minimal_base-20241218-160099.16.1.x86_64.rpm
+02:04:46  rpm -U  SLE-Product-SLES-16.1/x86_64/patterns-base-bootloader-20241218-160099.16.1.x86_64.rpm
+02:05:53  rpm -U  SLE-Product-SLES-16.1/x86_64/patterns-base-base-20241218-160099.16.1.x86_64.rpm
+02:05:53  rpm -U  SLE-Product-SLES-16.1/x86_64/patterns-base-enhanced_base-20241218-160099.16.1.x86_64.rpm
+02:06:50  rpm -U  SLE-Product-HA-16.1/x86_64/patterns-ha-ha_sles-16.0-160000.4.1.x86_64.rpm
 ```

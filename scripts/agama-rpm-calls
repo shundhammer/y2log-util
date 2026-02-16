@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Grep agama journald.out.log for external rpm commands executed by libzypp
+#
+# Author:  Stefan Hundhammer <shundhammer@suse.com>
+# License: GPL V2
+
+infile=$*
+journal="journald.out.log"
+
+if [ -z "$infile" ]; then
+    if [ -f $journal ]; then
+        infile=$journal
+        echo "Using $journal"
+    else
+        echo "FATAL: No infile." 1>&2
+        exit 1
+    fi
+fi
+
+grep -h -E "Executing.*'rpm'.*'-U'" $infile | \
+    sed -E \
+        -e 's:^[A-Z][a-z]+ [0-9]+ ::' \
+        -e 's:agama.*.*/mnt/var/cache/zypp/packages/: rpm -U  :' \
+        -e 's/-U.*:/-U  /' \
+        -e "s:'::"
