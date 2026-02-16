@@ -11,7 +11,6 @@ journal="journald.out.log"
 if [ -z "$infile" ]; then
     if [ -f $journal ]; then
         infile=$journal
-        echo "Using $journal"
     else
         echo "FATAL: No infile." 1>&2
         exit 1
