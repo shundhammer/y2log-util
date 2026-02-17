@@ -45,10 +45,11 @@ for log in $y2logs ; do
         -e '/Pkg::Callback.*is obsolete and does nothing/d'     \
         -e '/URLClass.Parse.*out of array size/d'               \
         -e '/Pkg Builtin called/d'                              \
+        -e '/Y2Storage::Device.*Calling .detect_resize_info/d'  \
         -e 's/\[Ruby\] lib\/cheetah.*Standard output:/  /'      \
         -e 's/\[libstorage\].*line stdout\[[0-9]+\] / /'        \
         -e 's/\[libstorage\].*Adding Line [0-9]+\ /  /'         \
-        -e 's/\[Ruby\].*cheetah.*Error output: /  /'             \
+        -e 's/\[Ruby\].*cheetah.*Error output: /  /'            \
         $log
 done
 
