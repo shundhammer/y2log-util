@@ -17,9 +17,9 @@ if [ -z "$infile" ]; then
     fi
 fi
 
-grep -h -E "Executing.*'rpm'.*'-U'" $infile | \
+grep -h -E "Executing.*'rpm'.*'-[Ui]'" $infile | \
     sed -E \
         -e 's:^[A-Z][a-z]+ [0-9]+ ::' \
-        -e 's: [A-Za-z]+.* agama-web-server.*.*/mnt/var/cache/zypp/packages/: rpm -U  :' \
-        -e 's/-U.*:/-U  /' \
+        -e 's: [A-Za-z]+.* agama-web-server.* .(-[Ui]). .*/mnt/var/cache/zypp/packages/: rpm \1  :' \
+        -e 's/(-[Ui]).*:/\1  /' \
         -e "s:'::"
